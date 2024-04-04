@@ -17,7 +17,15 @@ type Data struct {
 }
 
 func main() {
-	file, err := os.OpenFile("./data/measurements-rounding.txt", os.O_RDONLY, 0666)
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: go-1brc <input_file>")
+		return
+	}
+
+	filePath := os.Args[1]
+	fmt.Println(filePath)
+
+	file, err := os.OpenFile(filePath, os.O_RDONLY, 0666)
 	if err != nil {
 		panic(err)
 	}
