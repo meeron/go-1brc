@@ -67,9 +67,15 @@ func main() {
 
 	sort.Strings(keys)
 
+	wr := bufio.NewWriter(os.Stdout)
+	var builder strings.Builder
+
 	for _, key := range keys {
 		data := result[key]
 		mean := data.Sum / float32(data.Count)
-		fmt.Printf("%s;%.1f;%.1f;%.1f\n", key, data.Min, mean, data.Max)
+		builder.WriteString(fmt.Sprintf("%s;%.1f;%.1f;%.1f\n", key, data.Min, mean, data.Max))
 	}
+
+	fmt.Fprintf(wr, "%s", builder.String())
+	wr.Flush()
 }
